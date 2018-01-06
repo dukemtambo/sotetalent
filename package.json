@@ -1,0 +1,46 @@
+{
+  "name": "sotetalent",
+  "version": "0.1.1",
+  "description":
+    "A crowd-investment platform that matches investors to early stage startups",
+  "engines": {
+    "node": "6.11.x"
+  },
+  "scripts": {
+    "react-ui-start": "cd react-ui/ && yarn start",
+    "dev-start": "nodemon --exec babel-node -- ./server/index.js",
+    "start": "babel-node server",
+    "heroku-postbuild": "cd react-ui/ && yarn && yarn install && yarn run build"
+  },
+  "cacheDirectories": ["node_modules", "react-ui/node_modules"],
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.1.2",
+    "babel-preset-env": "^1.6.1",
+    "bluebird": "^3.5.1",
+    "dotenv": "^4.0.0",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-prettier": "^2.4.0",
+    "eslint-plugin-react": "^7.5.1",
+    "express": "^4.14.1",
+    "mongoose": "^4.13.8",
+    "nodemon": "^1.14.7",
+    "prettier": "^1.9.2",
+    "react-loader": "^2.4.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "dotBerry",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": ""
+}
