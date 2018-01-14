@@ -8,14 +8,14 @@ class SignupForm extends React.Component {
     data: {
       email: "",
       username: "",
-      password: "",
+      password: ""
     },
-    errors: {},
+    errors: {}
   };
 
   onChange = e =>
     this.setState({
-      data: { ...this.state.data, [e.target.name]: e.target.value },
+      data: { ...this.state.data, [e.target.name]: e.target.value }
     });
 
   onSubmit = e => {
@@ -27,7 +27,7 @@ class SignupForm extends React.Component {
       this.props
         .submit(this.state.data)
         .catch(err =>
-          this.setState({ errors: err.response.data.errors, loading: false }),
+          this.setState({ errors: err.response.data.errors, loading: false })
         );
     }
   };
@@ -112,7 +112,7 @@ class SignupForm extends React.Component {
 }
 
 SignupForm.propTypes = {
-  submit: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired
 };
 
 export default SignupForm;
