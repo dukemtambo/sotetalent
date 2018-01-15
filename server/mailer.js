@@ -8,8 +8,8 @@ function setup() {
     port: process.env.EMAIL_PORT,
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
+      pass: process.env.EMAIL_PASS,
+    },
   });
 }
 
@@ -23,7 +23,7 @@ export function sendConfirmationEmail(user) {
     Welcome to Sote Talent. Please, confirm your email.
 
     ${user.generateConfirmationUrl()}
-    `
+    `,
   };
 
   tranport.sendMail(email);
@@ -39,7 +39,7 @@ export function sendResetPasswordEmail(user) {
     To reset password follow this link
 
     ${user.generateResetPasswordLink()}
-    `
+    `,
   };
 
   tranport.sendMail(email);

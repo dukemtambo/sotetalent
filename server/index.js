@@ -13,7 +13,7 @@ const app = express();
 app.use(bodyParser.json());
 const PORT = process.env.PORT || 5000;
 
-// mongodb connection
+// Mongodb connection
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
@@ -22,7 +22,7 @@ app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
 // Answer API requests.
 app.use("/api/auth", auth);
-app.use("/api/user", users);
+app.use("/api/users", users);
 
 // All remaining requests return the React app, so it can handle routing.
 app.get("*", (request, response) => {
