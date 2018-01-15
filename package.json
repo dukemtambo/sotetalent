@@ -1,7 +1,8 @@
 {
   "name": "sotetalent",
   "version": "0.1.1",
-  "description": "A crowd-investment platform that matches investors to early stage startups",
+  "description":
+    "A crowd-investment platform that matches investors to early stage startups",
   "engines": {
     "node": "6.11.x"
   },
@@ -11,10 +12,7 @@
     "start": "babel-node server",
     "heroku-postbuild": "cd react-ui/ && yarn && yarn install && yarn run build"
   },
-  "cacheDirectories": [
-    "node_modules",
-    "react-ui/node_modules"
-  ],
+  "cacheDirectories": ["node_modules", "react-ui/node_modules"],
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.1.2",
@@ -48,7 +46,8 @@
   "author": "dotBerry",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/sotetalent/sotetalent/issues"
   },
-  "homepage": ""
+  "homepage": "http://sotetalent.com",
+  "main": "server/index.js"
 }
