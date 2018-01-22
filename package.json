@@ -1,18 +1,21 @@
 {
   "name": "sotetalent",
   "version": "0.1.1",
-  "description":
-    "A crowd-investment platform that matches investors to early stage startups",
+  "description": "A crowd-investment platform that matches investors to early stage startups",
   "engines": {
     "node": "6.11.x"
   },
   "scripts": {
-    "react-ui-start": "cd react-ui/ && yarn start",
-    "dev-start": "nodemon --exec babel-node -- ./server/index.js",
+    "ui-start": "cd react-ui/ && yarn start",
+    "server-start": "nodemon --exec babel-node -- ./server/index.js",
+    "dev-start": "concurrently \"yarn run server-start\" \"npm run ui-start\"",
     "start": "babel-node server",
     "heroku-postbuild": "cd react-ui/ && yarn && yarn install && yarn run build"
   },
-  "cacheDirectories": ["node_modules", "react-ui/node_modules"],
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.1.2",
@@ -20,6 +23,7 @@
     "bcrypt": "^1.0.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
     "dotenv": "^4.0.0",
     "eslint": "^4.14.0",
     "eslint-config-airbnb": "^15.1.0",
