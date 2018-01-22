@@ -32,14 +32,19 @@ const Navigation = () => (
               About
             </Link>
           </li>
-          {/* <li className="nav-item">
-            <a href="/get-engaged" className="nav-link">
-              Get Engaged
-            </a>
-          </li> */}
           <li className="nav-item">
             <Link to="/competition" className="nav-link">
-              Competition
+              Competitions
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/startups" className="nav-link">
+              Startups
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/market" className="nav-link">
+              Market
             </Link>
           </li>
           <li className="nav-item">

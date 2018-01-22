@@ -5,7 +5,6 @@ import { Route } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import LoginPage from "./components/pages/LoginPage";
 import AboutPage from "./components/pages/AboutPage";
-import GetEngagedPage from "./components/pages/GetEngagedPage";
 import CompetitionPage from "./components/pages/CompetitionPage";
 import DashboardPage from "./components/pages/DashboardPage";
 import SignupPage from "./components/pages/SignupPage";
@@ -34,12 +33,12 @@ const App = ({ location, isAuthenticated }) => (
       exact
       component={CompetitionPage}
     />
-    <GuestRoute
+    {/* <GuestRoute
       location={location}
       path="/get-engaged"
       exact
       component={GetEngagedPage}
-    />
+    /> */}
     <GuestRoute
       location={location}
       path="/signup"
