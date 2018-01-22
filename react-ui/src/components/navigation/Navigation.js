@@ -33,7 +33,7 @@ const Navigation = () => (
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/competition" className="nav-link">
+            <Link to="/competitions" className="nav-link">
               Competitions
             </Link>
           </li>

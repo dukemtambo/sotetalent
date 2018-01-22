@@ -8,6 +8,8 @@ import AboutPage from "./components/pages/AboutPage";
 import CompetitionPage from "./components/pages/CompetitionPage";
 import DashboardPage from "./components/pages/DashboardPage";
 import SignupPage from "./components/pages/SignupPage";
+import StartupPage from "./components/pages/StartupPage";
+import MarketPage from "./components/pages/MarketPage";
 import ConfirmationPage from "./components/pages/ConfirmationPage";
 import ForgotPasswordPage from "./components/pages/ForgotPasswordPage";
 import ResetPasswordPage from "./components/pages/ResetPasswordPage";
@@ -29,16 +31,22 @@ const App = ({ location, isAuthenticated }) => (
     <GuestRoute location={location} path="/about" exact component={AboutPage} />
     <GuestRoute
       location={location}
-      path="/competition"
+      path="/competitions"
       exact
       component={CompetitionPage}
     />
-    {/* <GuestRoute
+    <GuestRoute
       location={location}
-      path="/get-engaged"
+      path="/startups"
       exact
-      component={GetEngagedPage}
-    /> */}
+      component={StartupPage}
+    />
+    <GuestRoute
+      location={location}
+      path="/market"
+      exact
+      component={MarketPage}
+    />
     <GuestRoute
       location={location}
       path="/signup"
