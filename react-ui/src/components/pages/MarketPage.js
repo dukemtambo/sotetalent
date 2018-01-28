@@ -1,9 +1,15 @@
 import React from "react";
+import aboutHeaderImage from "../../assets/img/daniel-olahs.jpg";
 
-const MarketPage = () => (
-    <div>
-        <h1>MarketPage</h1>
+const StartupPage = () => (
+  <div className="wrapper">
+    <div
+      className="documentation page-header page-header-small"
+      style={{ backgroundImage: `url(${aboutHeaderImage})` }}
+    >
+      <div className="filter" />
     </div>
+  </div>
 );
 
-export default MarketPage;
+export default StartupPage;
