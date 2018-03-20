@@ -1,0 +1,24 @@
+extends ../../layouts/default
+
+include ../../mixins/startup
+
+block intro
+	.page-intro: .container
+		h1 Startups
+		p.lead The startups and people who are part of SoteTalent. Should you be here? Join us!
+		.buttons
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
+			a(href='/members').btn.btn-default View Members
+			a(href='/members/mentors').btn.btn-default View Mentors
+
+block content
+	.page-content: .container
+		.organisations
+			if startups.length
+				each st, i in startups
+					if i
+						hr
+					+startup(st)
+			else
+				h3.text-muted There are no organisations yet
