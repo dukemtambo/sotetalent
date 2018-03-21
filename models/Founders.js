@@ -8,7 +8,7 @@ const Types = keystone.Field.Types;
  * ===========
  */
 
-var User2 = new keystone.List("User2", {
+var Founders = new keystone.List("Founders", {
   track: true,
   autokey: { path: "key", from: "name", unique: true }
 });
@@ -22,7 +22,7 @@ var deps = {
   twitter: { "services.twitter.isConfigured": true }
 };
 
-User2.add(
+Founders.add(
   {
     name: { type: Types.Name, required: true, index: true },
     email: { type: Types.Email, initial: true, index: true },
@@ -180,7 +180,7 @@ User2.add(
 	=============
 */
 
-User2.schema.pre("save", function(next) {
+Founders.schema.pre("save", function(next) {
   var member = this;
   async.parallel(
     [
@@ -232,9 +232,9 @@ User2.schema.pre("save", function(next) {
 	=============
 */
 
-User2.relationship({ ref: "Post", refPath: "author", path: "posts" });
-User2.relationship({ ref: "Talk", refPath: "who", path: "talks" });
-User2.relationship({ ref: "RSVP", refPath: "who", path: "rsvps" });
+Founders.relationship({ ref: "Post", refPath: "author", path: "posts" });
+Founders.relationship({ ref: "Talk", refPath: "who", path: "talks" });
+Founders.relationship({ ref: "RSVP", refPath: "who", path: "rsvps" });
 
 /**
  * Virtuals
@@ -242,17 +242,17 @@ User2.relationship({ ref: "RSVP", refPath: "who", path: "rsvps" });
  */
 
 // Link to member
-User2.schema.virtual("url").get(function() {
+Founders.schema.virtual("url").get(function() {
   return "/member/" + this.key;
 });
 
 // Provide access to Keystone
-User2.schema.virtual("canAccessKeystone").get(function() {
+Founders.schema.virtual("canAccessKeystone").get(function() {
   return this.isAdmin;
 });
 
 // Pull out avatar image
-User2.schema.virtual("avatarUrl").get(function() {
+Founders.schema.virtual("avatarUrl").get(function() {
   if (this.photo.exists) return this._.photo.thumbnail(120, 120);
   if (this.services.github.isConfigured && this.services.github.avatar)
     return this.services.github.avatar;
@@ -271,12 +271,12 @@ User2.schema.virtual("avatarUrl").get(function() {
 });
 
 // Usernames
-User2.schema.virtual("twitterUsername").get(function() {
+Founders.schema.virtual("twitterUsername").get(function() {
   return this.services.twitter && this.services.twitter.isConfigured
     ? this.services.twitter.username
     : "";
 });
-User2.schema.virtual("githubUsername").get(function() {
+Founders.schema.virtual("githubUsername").get(function() {
   return this.services.github && this.services.github.isConfigured
     ? this.services.github.username
     : "";
@@ -287,7 +287,7 @@ User2.schema.virtual("githubUsername").get(function() {
  * =======
  */
 
-User2.schema.methods.resetPassword = function(callback) {
+Founders.schema.methods.resetPassword = function(callback) {
   var user = this;
   user.resetPasswordKey = keystone.utils.randomString([16, 24]);
   user.save(function(err) {
@@ -313,5 +313,5 @@ User2.schema.methods.resetPassword = function(callback) {
  * ============
  */
 
-User2.defaultColumns = "name, email, twitter, isAdmin";
-User2.register();
+Founders.defaultColumns = "name, email, twitter, isAdmin";
+Founders.register();

@@ -19,7 +19,7 @@ block intro
 				.hero-background
 					//-img(src='/images/placeholders/sydney-1.jpg')
 				.hero-intro-content
-					h5.subtitle #{meetup.state == 'active' ? 'Next' : 'Last'} Meetup
+					h5.subtitle #{meetup.state == 'active' ? 'Next' : 'Last'} Competition
 					h1.title= meetup.name
 					p.byline: strong #{meetup._.startDate.format('ddd, DD MMM YYYY')} &#8212; #{meetup._.startDate.format('h:mma')} - #{meetup._.endDate.format('h:mma')}
 					p.byline #{meetup.place} &#8212; 
@@ -79,9 +79,9 @@ block content
 		
 		//- About
 		article.section.section--featured.home-about: .container
-			h2 In Sydney and into JavaScript? You need to join SydJS!
+			h2 Are you a startup co-founder? You need to join SoteTalent!
 			.row: .col-sm-8.col-sm-offset-2
-				p.lead Every 3rd Wednesday of the month you'll find us talking about what we're doing and what's happening around us in the world of JavaScript.
+				p.lead SoteTalent is a crowd-investment platform that matches investors to early stage startups and talented people with business ideas. Guiding them through a common journey to business success, while applying blockchain technology and Artificial Intelligence.
 			if !user
 				.row: .col-sm-4.col-sm-offset-4
 					a(href='/join', data-from=page.path).js-auth-trigger.btn.btn-lg.btn-block.btn-primary.mv-1
@@ -89,7 +89,7 @@ block content
 			p.mt-1
 				a(href='/about') Learn more about SoteTalent
 				|  &nbsp;&middot;&nbsp; 
-				a(href='/members') Find your friends in SoteTalent
+				a(href='/members') Find other co-founders in SoteTalent
 			p.mt-1: a(href="https://twitter.com/sotetalent", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sotetalent
 //- JS
 block js

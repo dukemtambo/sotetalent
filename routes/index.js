@@ -1,14 +1,14 @@
-var babelify = require("babelify");
-var bodyParser = require("body-parser");
-var browserify = require("browserify-middleware");
-var clientConfig = require("../client/config");
-var keystone = require("keystone");
-var middleware = require("./middleware");
-var graphqlHTTP = require("express-graphql");
-var graphQLSchema = require("../graphql/basicSchema").default;
-var relaySchema = require("../graphql/relaySchema").default;
+const babelify = require("babelify");
+const bodyParser = require("body-parser");
+const browserify = require("browserify-middleware");
+const clientConfig = require("../client/config");
+const keystone = require("keystone");
+const middleware = require("./middleware");
+const graphqlHTTP = require("express-graphql");
+const graphQLSchema = require("../graphql/basicSchema").default;
+const relaySchema = require("../graphql/relaySchema").default;
 
-var importRoutes = keystone.importer(__dirname);
+const importRoutes = keystone.importer(__dirname);
 
 // Common Middleware
 keystone.pre("routes", middleware.initErrorHandlers);
@@ -36,7 +36,7 @@ keystone.set("500", function(err, req, res, next) {
 });
 
 // Load Routes
-var routes = {
+const routes = {
   api: importRoutes("./api"),
   views: importRoutes("./views"),
   auth: importRoutes("./auth")
@@ -100,6 +100,7 @@ exports = module.exports = function(app) {
   app.all("/blog/post/:post", routes.views.post);
   app.get("/about", routes.views.about);
   app.get("/startups", routes.views.startups);
+  app.get("/competitions", routes.views.competitions);
   app.get("/mentoring", routes.views.mentoring);
 
   app.get("/showbag", routes.views.showbag);

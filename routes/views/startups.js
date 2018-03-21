@@ -7,6 +7,7 @@ exports = module.exports = function(req, res) {
     locals = res.locals;
 
   // locals.section = 'members';
+  locals.page.title = "Startups - SoteTalent";
 
   view.query("startups", Startup.model.find().sort("name"), "members");
 
