@@ -9,11 +9,19 @@ const keystone = require("keystone");
 exports.initLocals = function(req, res, next) {
   var locals = res.locals;
 
+  // locals.navLinks = [
+  //   { label: "Home", key: "home", href: "/" },
+  //   { label: "Code of Conduct", key: "about", href: "/about#CoC" },
+  //   { label: "Meetups", key: "meetups", href: "/meetups" },
+  //   { label: "Members", key: "members", href: "/members" },
+  //   { label: "Showbag", key: "showbag", href: "/showbag" }
+  // ];
+
   locals.navLinks = [
     { label: "Home", key: "home", href: "/" },
-    { label: "Code of Conduct", key: "about", href: "/about#CoC" },
-    { label: "Meetups", key: "meetups", href: "/meetups" },
+    { label: "Competitions", key: "competitions", href: "/competitions" },
     { label: "Members", key: "members", href: "/members" },
+    { label: "Startups", key: "startups", href: "/startups" },
     { label: "Showbag", key: "showbag", href: "/showbag" }
   ];
 
