@@ -26,7 +26,7 @@ Startup.add({
  */
 
 Startup.relationship({
-  ref: "User2",
+  ref: "Founders",
   refPath: "startup",
   path: "members"
 });
