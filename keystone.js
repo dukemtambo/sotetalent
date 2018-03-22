@@ -33,7 +33,7 @@ keystone.init({
   emails: "templates/emails",
 
   "auto update": true,
-  mongo: process.env.MONGO_URI || "mongodb://localhost/" + pkg.name,
+  mongo: process.env.MONGODB_URI || "mongodb://localhost/" + pkg.name,
 
   session: true,
   "session store": "mongo",
