@@ -74,7 +74,7 @@ keystone.set("locals", {
 // Staging env, production links. Change as neccessary
 keystone.set("email locals", {
   utils: keystone.utils,
-  host: (function() {
+  host: (function () {
     if (keystone.get("env") === "staging")
       return "http://sotetalent-beta.herokuapp.com";
     if (keystone.get("env") === "production")
@@ -87,6 +87,7 @@ keystone.set("email locals", {
 });
 
 keystone.set("nav", {
+  // competitions: ["competitions"],
   meetups: ["meetups", "talks", "rsvps"],
   members: ["users", "organisations"],
   posts: ["posts", "post-categories", "post-comments"],
