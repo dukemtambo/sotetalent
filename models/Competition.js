@@ -22,7 +22,7 @@ Competition.add({
     options: "draft, scheduled, active, past",
     noedit: true
   },
-
+  // TODO: StartDate and EndDate might be deadline instade
   startDate: {
     type: Types.Datetime,
     required: true,
@@ -69,7 +69,7 @@ Competition.add({
 // ------------------------------
 
 // TODO: RSVP (should be startups)
-// Competition.relationship({ ref: "Talk", refPath: "meetup", path: "talks" });
+Competition.relationship({ ref: "Talk", refPath: "meetup", path: "talks" });
 Competition.relationship({
   ref: "RSVP",
   refPath: "competition",

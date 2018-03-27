@@ -2,18 +2,18 @@ const keystone = require("keystone");
 const moment = require("moment");
 const RSVP = keystone.list("RSVP");
 
-const Meetup = keystone.list("Meetup");
+const Competitions = keystone.list("Competition");
 
 exports = module.exports = function(req, res) {
   var view = new keystone.View(req, res),
     locals = res.locals;
 
-  locals.section = "meetups";
+  locals.section = "competitions";
   locals.page.title = "Competitions - SoteTalent";
 
   view.query(
-    "upcomingMeetup",
-    Meetup.model
+    "upcomingCompetition",
+    Competitions.model
       .findOne()
       .where("state", "active")
       .sort("-startDate"),
@@ -21,8 +21,8 @@ exports = module.exports = function(req, res) {
   );
 
   view.query(
-    "pastMeetups",
-    Meetup.model
+    "pastCompetitions",
+    Competitions.model
       .find()
       .where("state", "past")
       .sort("-startDate"),
@@ -30,12 +30,12 @@ exports = module.exports = function(req, res) {
   );
 
   view.on("render", function(next) {
-    if (!req.user || !locals.upcomingMeetup) return next();
+    if (!req.user || !locals.upcomingCompetition) return next();
 
     RSVP.model
       .findOne()
       .where("who", req.user._id)
-      .where("meetup", locals.upcomingMeetup)
+      .where("competition", locals.upcomingCompetition)
       .exec(function(err, rsvp) {
         locals.rsvpStatus = {
           rsvped: rsvp ? true : false,
