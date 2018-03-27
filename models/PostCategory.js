@@ -1,28 +1,30 @@
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require("keystone");
+const Types = keystone.Field.Types;
 
 /**
  * Post Categories Model
  * =====================
  */
 
-var PostCategory = new keystone.List('PostCategory', {
-	track: true,
-	autokey: { from: 'name', path: 'key', unique: true }
+const PostCategory = new keystone.List("PostCategory", {
+  track: true,
+  autokey: { from: "name", path: "key", unique: true }
 });
 
 PostCategory.add({
-	name: { type: String, required: true }
+  name: { type: String, required: true }
 });
-
 
 /**
  * Relationships
  * =============
  */
 
-PostCategory.relationship({ ref: 'Post', refPath: 'categories', path: 'posts' });
-
+PostCategory.relationship({
+  ref: "Post",
+  refPath: "categories",
+  path: "posts"
+});
 
 /**
  * Registration

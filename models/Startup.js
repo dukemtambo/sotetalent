@@ -25,8 +25,10 @@ Startup.add({
  * =============
  */
 
+//  Founder For the Given Startup (Should be user)
+
 Startup.relationship({
-  ref: "Founders",
+  ref: "User",
   refPath: "startup",
   path: "members"
 });

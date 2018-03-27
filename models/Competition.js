@@ -4,16 +4,16 @@ const moment = require("moment");
 const Types = keystone.Field.Types;
 
 /**
- * Meetups Model
- * =============
+ * Competitions Model
+ * ==================
  */
 
-const Meetup = new keystone.List("Meetup", {
+const Competition = new keystone.List("Competition", {
   track: true,
   autokey: { path: "key", from: "name", unique: true }
 });
 
-Meetup.add({
+Competition.add({
   name: { type: String, required: true, initial: true },
   publishedDate: { type: Types.Date, index: true },
 
@@ -45,16 +45,17 @@ Meetup.add({
     required: false,
     initial: true,
     width: "medium",
-    default: "Level 6, 341 George St (Atlassian)",
-    note: "Usually Atlassian – Level 6, 341 George St"
+    default: "Sote Hub, Mombasa Road, c/o Red Elephant Bistro (SoteHub)",
+    note: "Usually SoteHUb – Mombasa Road, c/o Red Elephant Bistro"
   },
   map: {
     type: String,
     required: false,
     initial: true,
     width: "medium",
-    default: "Level 6, 341 George St",
-    note: "Level 6, 341 George St"
+    default:
+      "Sote Hub, Mombasa Road, c/o Red Elephant Bistro, P.O.BOX 213, Voi",
+    note: "Sote Hub, Mombasa Road, c/o Red Elephant Bistro"
   },
   description: { type: Types.Html, wysiwyg: true },
 
@@ -67,42 +68,47 @@ Meetup.add({
 // Relationships
 // ------------------------------
 
-Meetup.relationship({ ref: "Talk", refPath: "meetup", path: "talks" });
-Meetup.relationship({ ref: "RSVP", refPath: "meetup", path: "rsvps" });
+// TODO: RSVP (should be startups)
+// Competition.relationship({ ref: "Talk", refPath: "meetup", path: "talks" });
+Competition.relationship({
+  ref: "RSVP",
+  refPath: "competition",
+  path: "rsvps"
+});
 
 // Virtuals
 // ------------------------------
 
-Meetup.schema.virtual("url").get(function() {
-  return "/meetups/" + this.key;
+Competition.schema.virtual("url").get(function() {
+  return "/competitions/" + this.key;
 });
 
-Meetup.schema.virtual("remainingRSVPs").get(function() {
+Competition.schema.virtual("remainingRSVPs").get(function() {
   if (!this.maxRSVPs) return -1;
   return Math.max(this.maxRSVPs - (this.totalRSVPs || 0), 0);
 });
 
-Meetup.schema.virtual("rsvpsAvailable").get(function() {
+Competition.schema.virtual("rsvpsAvailable").get(function() {
   return this.remainingRSVPs > 0;
 });
 
 // Pre Save
 // ------------------------------
 
-Meetup.schema.pre("save", function(next) {
-  var meetup = this;
-  // no published date, it's a draft meetup
-  if (!meetup.publishedDate) {
-    meetup.state = "draft";
-  } else if (moment().isAfter(moment(meetup.startDate).add("day", 1))) {
-    // meetup date plus one day is after today, it's a past meetup
-    meetup.state = "past";
-  } else if (moment().isAfter(meetup.publishedDate)) {
-    // publish date is after today, it's an active meetup
-    meetup.state = "active";
-  } else if (moment().isBefore(moment(meetup.publishedDate))) {
-    // publish date is before today, it's a scheduled meetup
-    meetup.state = "scheduled";
+Competition.schema.pre("save", function(next) {
+  let competition = this;
+  // no published date, it's a draft competition
+  if (!competition.publishedDate) {
+    competition.state = "draft";
+  } else if (moment().isAfter(moment(competition.startDate).add("day", 1))) {
+    // competition date plus one day is after today, it's a past competition
+    competition.state = "past";
+  } else if (moment().isAfter(competition.publishedDate)) {
+    // publish date is after today, it's an active competition
+    competition.state = "active";
+  } else if (moment().isBefore(moment(competition.publishedDate))) {
+    // publish date is before today, it's a scheduled competition
+    competition.state = "scheduled";
   }
   next();
 });
@@ -110,42 +116,42 @@ Meetup.schema.pre("save", function(next) {
 // Methods
 // ------------------------------
 
-Meetup.schema.methods.refreshRSVPs = function(callback) {
-  var meetup = this;
+Competition.schema.methods.refreshRSVPs = function(callback) {
+  let competition = this;
   keystone
     .list("RSVP")
     .model.count()
-    .where("meetup")
-    .in([meetup.id])
+    .where("competition")
+    .in([competition.id])
     .where("attending", true)
     .exec(function(err, count) {
       if (err) return callback(err);
-      meetup.totalRSVPs = count;
-      meetup.save(callback);
+      competition.totalRSVPs = count;
+      competition.save(callback);
     });
 };
 
-Meetup.schema.methods.notifyAttendees = function(req, res, next) {
-  var meetup = this;
+Competition.schema.methods.notifyAttendees = function(req, res, next) {
+  let competition = this;
   keystone
     .list("User")
     .model.find()
-    .where("notifications.meetups", true)
+    .where("notifications.competition", true)
     .exec(function(err, attendees) {
       if (err) return next(err);
       if (!attendees.length) {
         next();
       } else {
         attendees.forEach(function(attendee) {
-          new keystone.Email("new-meetup").send(
+          new keystone.Email("new-competition").send(
             {
               attendee: attendee,
-              meetup: meetup,
-              subject: "New meetup: " + meetup.name,
+              competition: competition,
+              subject: "New competition: " + competition.name,
               to: attendee.email,
               from: {
-                name: "SydJS",
-                email: "hello@sydjs.com"
+                name: "SoteTaalent",
+                email: "info@sotetalent.com"
               }
             },
             next
@@ -155,7 +161,7 @@ Meetup.schema.methods.notifyAttendees = function(req, res, next) {
     });
 };
 
-Meetup.schema.set("toJSON", {
+Competition.schema.set("toJSON", {
   transform: function(doc, rtn, options) {
     return _.pick(
       doc,
@@ -177,6 +183,7 @@ Meetup.schema.set("toJSON", {
  * ============
  */
 
-Meetup.defaultSort = "-startDate";
-Meetup.defaultColumns = "name, state|10%, startDate|15%, publishedDate|15%";
-Meetup.register();
+Competition.defaultSort = "-startDate";
+Competition.defaultColumns =
+  "name, state|10%, startDate|15%, publishedDate|15%";
+Competition.register();

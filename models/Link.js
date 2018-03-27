@@ -1,12 +1,12 @@
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+const Types = keystone.Field.Types;
 
 /**
  * Links Model
  * ===========
  */
 
-var Link = new keystone.List('Link', {
+const Link = new keystone.List('Link', {
 	map: { name: 'label' },
 	track: true,
 	autokey: { path: 'slug', from: 'label', unique: true }
