@@ -96,7 +96,7 @@ Competition.schema.virtual("rsvpsAvailable").get(function() {
 // ------------------------------
 
 Competition.schema.pre("save", function(next) {
-  let competition = this;
+  var competition = this;
   // no published date, it's a draft competition
   if (!competition.publishedDate) {
     competition.state = "draft";
@@ -117,7 +117,7 @@ Competition.schema.pre("save", function(next) {
 // ------------------------------
 
 Competition.schema.methods.refreshRSVPs = function(callback) {
-  let competition = this;
+  var competition = this;
   keystone
     .list("RSVP")
     .model.count()
@@ -132,7 +132,7 @@ Competition.schema.methods.refreshRSVPs = function(callback) {
 };
 
 Competition.schema.methods.notifyAttendees = function(req, res, next) {
-  let competition = this;
+  var competition = this;
   keystone
     .list("User")
     .model.find()

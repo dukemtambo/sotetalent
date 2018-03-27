@@ -53,9 +53,9 @@ Post.relationship({ ref: "PostComment", refPath: "post", path: "comments" });
  */
 
 Post.schema.methods.notifyAdmins = function(callback) {
-  let post = this;
+  var post = this;
   // Method to send the notification email after data has been loaded
-  let sendEmail = function(err, results) {
+  var sendEmail = function(err, results) {
     if (err) return callback(err);
     async.each(
       results.admins,
