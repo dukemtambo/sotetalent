@@ -63,7 +63,7 @@ User.add(
   },
   "Permissions",
   {
-    isAdmin: { type: Boolean, label: "Can Admin SydJS" },
+    isAdmin: { type: Boolean, label: "Can Admin SoteTalent" },
     isVerified: { type: Boolean, label: "Has a verified email address" }
   },
   "Services",
@@ -267,7 +267,7 @@ User.schema.virtual("avatarUrl").get(function() {
     return (
       "https://www.gravatar.com/avatar/" +
       this.gravatar +
-      "?d=https%3A%2F%2Fsydjs.com%2Fimages%2Favatar.png&r=pg"
+      "?d=https%3A%2F%2Fsotetalent.com%2Fimages%2Favatar.png&r=pg"
     );
 });
 
@@ -297,11 +297,11 @@ User.schema.methods.resetPassword = function(callback) {
       {
         user: user,
         link: "/reset-password/" + user.resetPasswordKey,
-        subject: "Reset your SydJS Password",
+        subject: "Reset your SoteTalent Password",
         to: user.email,
         from: {
-          name: "SydJS",
-          email: "contact@sydjs.com"
+          name: "SoteTalent",
+          email: "info@sotetalent.com"
         }
       },
       callback

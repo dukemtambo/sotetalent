@@ -1,14 +1,14 @@
-var React = require("react");
-var request = require("superagent");
-var RSVPStore = require("../stores/RSVPStore");
+const React = require("react");
+const request = require("superagent");
+const RSVPStore = require("../stores/RSVPStore");
 
-var HeroApp = React.createClass({
+const HeroApp = React.createClass({
   getInitialState: function() {
     return {
-      user: SydJS.user,
+      user: SoteTalent.user,
       isBusy: false,
       isReady: RSVPStore.isLoaded(),
-      meetup: RSVPStore.getMeetup(),
+      competition: RSVPStore.getCompetition(),
       rsvp: RSVPStore.getRSVP()
     };
   },
@@ -25,7 +25,7 @@ var HeroApp = React.createClass({
     this.setState({
       isBusy: RSVPStore.isBusy(),
       isReady: RSVPStore.isLoaded(),
-      meetup: RSVPStore.getMeetup(),
+      competition: RSVPStore.getCompetition(),
       rsvp: RSVPStore.getRSVP()
     });
   },
@@ -46,7 +46,7 @@ var HeroApp = React.createClass({
         <h4 className="hero-button-title">
           Are you coming? <br />{" "}
           <span className="spots-left">
-            {this.state.meetup.remainingRSVPs}
+            {this.state.competition.remainingRSVPs}
             <span className="text-thin"> spots left</span>
           </span>
           <br />
@@ -76,7 +76,7 @@ var HeroApp = React.createClass({
       <div className="hero-button" onClick={this.toggleRSVP.bind(this, true)}>
         <a className="btn btn-primary btn-lg btn-block">
           Apply Now (<span className="text-thin">
-            {this.state.meetup.remainingRSVPs} spots left
+            {this.state.competition.remainingRSVPs} spots left
           </span>)
         </a>
       </div>
@@ -95,9 +95,9 @@ var HeroApp = React.createClass({
         {this.renderWelcome()}
         <div className="hero-button">
           <div
-            id="next-meetup"
-            data-id={this.state.meetup._id}
-            className="form-row meetup-toggle"
+            id="next-competition"
+            data-id={this.state.competition._id}
+            className="form-row competition-toggle"
           >
             <div className="col-xs-8">
               <button
@@ -144,7 +144,7 @@ var HeroApp = React.createClass({
         >
           Apply Now{" "}
           <span className="text-thin">
-            ({this.state.meetup.remainingRSVPs} spots left)
+            ({this.state.competition.remainingRSVPs} spots left)
           </span>
         </a>
       </div>
@@ -170,7 +170,7 @@ var HeroApp = React.createClass({
     }
 
     var hasUser = !!this.state.user;
-    var isRsvpOpen = this.state.meetup.rsvpsAvailable;
+    var isRsvpOpen = this.state.competition.rsvpsAvailable;
     var hasRsvped = this.state.rsvp.exists;
     var isAttending = this.state.rsvp.attending;
 

@@ -9,7 +9,7 @@ include ../../mixins/advertisement
 block intro
 
 	//- HERO
-	if !meetup
+	if !competition
 		h2.text-center You just deployed. Go add some data :)
 	else
 		article#hero.hero-meetup.hero-meetup--next
@@ -19,12 +19,12 @@ block intro
 				.hero-background
 					//-img(src='/images/placeholders/sydney-1.jpg')
 				.hero-intro-content
-					h5.subtitle #{meetup.state == 'active' ? 'Next' : 'Last'} Competition
-					h1.title= meetup.name
-					p.byline: strong #{meetup._.startDate.format('ddd, DD MMM YYYY')} &#8212; #{meetup._.startDate.format('h:mma')} - #{meetup._.endDate.format('h:mma')}
-					p.byline #{meetup.place} &#8212; 
-						a(href='http://maps.google.com.au/?daddr=' + (meetup.map || meetup.place), target='_blank') Directions
-				if meetup.state === 'active'
+					h5.subtitle #{competition.state == 'active' ? 'Next' : 'Last'} Competition
+					h1.title= competition.name
+					p.byline: strong #{competition._.startDate.format('ddd, DD MMM YYYY')} &#8212; #{competition._.startDate.format('h:mma')} - #{competition._.endDate.format('h:mma')}
+					p.byline #{competition.place} &#8212; 
+						a(href='http://maps.google.com.au/?daddr=' + (competition.map || competition.place), target='_blank') Directions
+				if competition.state === 'active'
 					#react-hero-button
 			//- Details
 			section.hero-details: .container
@@ -33,15 +33,15 @@ block intro
 					//- Description
 					.col-md-5
 						//- h3.mb-1 The meetup
-						.description!= meetup.description
+						.description!= competition.description
 
 					//- Talks
 					.col-md-6.col-md-offset-1
-						if meetup.talks.length
+						if competition.talks.length
 							//- h3.mb-1 The talks
 							.meetup-talks
 								ul.list-unstyled.talks-list
-									each talk in meetup.talks
+									each talk in competition.talks
 										li.talk.row
 											.col-xs-3
 												.talk__speakers
@@ -94,12 +94,12 @@ block content
 //- JS
 block js
 
-	if meetup
+	if competition
 		script.
-			SydJS.currentMeetupId = !{JSON.stringify(meetup.id)};
+			SoteTalent.currentCompetitionId = !{JSON.stringify(competition.id)};
 	if user
 		script.
-			SydJS.user = !{JSON.stringify(user)};
+			SoteTalent.user = !{JSON.stringify(user)};
 
 	//- REACT SCRIPTS
 	script(src='/js/packages.js')

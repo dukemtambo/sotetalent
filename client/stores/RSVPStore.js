@@ -1,12 +1,12 @@
-var _ = require('lodash');
-var Store = require('store-prototype');
-var request = require('superagent');
+var _ = require("lodash");
+var Store = require("store-prototype");
+var request = require("superagent");
 
 var RSVPStore = new Store();
 
 var loaded = false;
 var busy = false;
-var meetup = {};
+var competition = {};
 var rsvp = {};
 var attendees = [];
 
@@ -14,81 +14,81 @@ var REFRESH_INTERVAL = 5000; // 5 seconds
 
 var refreshTimeout = null;
 function cancelRefresh() {
-	clearTimeout(refreshTimeout);
+  clearTimeout(refreshTimeout);
 }
 
 RSVPStore.extend({
+  getCompetition: function() {
+    return competition;
+  },
 
-	getMeetup: function() {
-		return meetup;
-	},
+  getRSVP: function() {
+    return rsvp;
+  },
 
-	getRSVP: function() {
-		return rsvp;
-	},
+  getAttendees: function(callback) {
+    return attendees;
+  },
 
-	getAttendees: function(callback) {
-		return attendees;
-	},
+  rsvp: function(attending, callback) {
+    if (busy) return;
+    cancelRefresh();
+    busy = true;
+    RSVPStore.notifyChange();
+    request
+      .post("/api/me/competition")
+      .send({
+        data: {
+          competition: SoteTalent.currentCompetitionId,
+          attending: attending
+        }
+      })
+      .end(function(err, res) {
+        if (err) {
+          console.log("Error with the AJAX request: ", err);
+          return;
+        }
+        RSVPStore.getCompetitionData();
+      });
+  },
 
-	rsvp: function(attending, callback) {
-		if (busy) return;
-		cancelRefresh();
-		busy = true;
-		RSVPStore.notifyChange();
-		request
-			.post('/api/me/meetup')
-			.send({ data: {
-				meetup: SydJS.currentMeetupId,
-				attending: attending
-			}})
-			.end(function(err, res) {
-				if (err) {
-					console.log('Error with the AJAX request: ', err)
-					return;
-				}
-				RSVPStore.getMeetupData();
-			});
-	},
+  isLoaded: function() {
+    return loaded;
+  },
 
-	isLoaded: function() {
-		return loaded;
-	},
+  isBusy: function() {
+    return busy;
+  },
 
-	isBusy: function() {
-		return busy;
-	},
+  getCompetitionData: function(callback) {
+    // ensure any scheduled refresh is stopped,
+    // in case this was called directly
+    cancelRefresh();
+    // request the update from the API
+    busy = true;
+    request
+      .get("/api/competition/" + SoteTalent.currentCompetitionId)
+      .end(function(err, res) {
+        if (err) {
+          console.log("Error with the AJAX request: ", err);
+        }
+        busy = false;
+        if (!err && res.body) {
+          loaded = true;
+          competition = res.body.competition;
+          rsvp = res.body.rsvp;
+          attendees = res.body.attendees;
+          RSVPStore.notifyChange();
+        }
+        RSVPStore.queueCompetitionRefresh();
+        return callback && callback(err, res.body);
+      });
+  },
 
-	getMeetupData: function(callback) {
-		// ensure any scheduled refresh is stopped,
-		// in case this was called directly
-		cancelRefresh();
-		// request the update from the API
-		busy = true;
-		request
-			.get('/api/meetup/' + SydJS.currentMeetupId)
-			.end(function(err, res) {
-				if (err) {
-					console.log('Error with the AJAX request: ', err)
-				}
-				busy = false;
-				if (!err && res.body) {
-					loaded = true;
-					meetup = res.body.meetup;
-					rsvp = res.body.rsvp;
-					attendees = res.body.attendees;
-					RSVPStore.notifyChange();
-				}
-				RSVPStore.queueMeetupRefresh();
-				return callback && callback(err, res.body);
-			});
-	},
-
-	queueMeetupRefresh: function() {
-		refreshTimeout = setTimeout(RSVPStore.getMeetupData, REFRESH_INTERVAL);
-	}
-
+  queueCompetitionRefresh: function() {
+    refreshTimeout = setTimeout(RSVPStore.getCompetitionData, REFRESH_INTERVAL);
+  }
 });
 
-RSVPStore.getMeetupData();
+RSVPStore.getCompetitionData();
 module.exports = RSVPStore;

@@ -101,6 +101,7 @@ exports = module.exports = function(app) {
   app.get("/about", routes.views.about);
   app.get("/startups", routes.views.startups);
   app.get("/competitions", routes.views.competitions);
+  app.get("/competitions/:competition", routes.views.competition);
   app.get("/mentoring", routes.views.mentoring);
 
   app.get("/showbag", routes.views.showbag);
@@ -131,6 +132,7 @@ exports = module.exports = function(app) {
   app.all("/api/me/meetup", routes.api.me.meetup);
   app.all("/api/stats", routes.api.stats);
   app.all("/api/meetup/:id", routes.api.meetup);
+  app.all("/api/competition/:id", routes.api.competition);
 
   // API - App
   app.all("/api/app/status", routes.api.app.status);
