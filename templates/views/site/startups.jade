@@ -5,7 +5,7 @@ include ../../mixins/startup
 block intro
 	.page-intro: .container
 		h1 Startups
-		p.lead The startups and people who are part of SoteTalent. Should you be here? Join us!
+		p.lead The startups that are part of SoteTalent. Should you be here? Join us!
 		.buttons
 			if !user
 				a(href='/join').btn.btn-primary Join SoteTalent
@@ -21,4 +21,4 @@ block content
 						hr
 					+startup(st)
 			else
-				h3.text-muted There are no organisations yet
+				h3.text-muted There are no startups yet
