@@ -9,11 +9,11 @@ block content
 		.page-intro
 			p.lead Hi #{user.name.first}, these are your settings and 
 				a(href=user.url) profile details
-			//- if nextMeetup
+			//- if nextCompetition
 				.alert.alert-info 
 					span.entypo.entypo-calendar
-					|  The next meetup has been announced - 
-					a(href=nextMeetup.url).alert-link= nextMeetup._.startDate.format('dddd D MMM YYYY')
+					|  The next competition has been announced - 
+					a(href=nextCompetition.url).alert-link= nextCompetition._.startDate.format('dddd D MMM YYYY')
 		.page-content.tile.ph-2.pv-2.mb-2
 			+flash-messages(messages)
 			form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal
@@ -31,8 +31,8 @@ block content
 					strong.col-sm-2.control-label Notify me
 					.col-sm-10
 						.checkbox: label
-							input(type='checkbox', name='notifications.meetups' value='true' checked=user.notifications.meetups)
-							|  When there is a new meetup
+							input(type='checkbox', name='notifications.competitionss' value='true' checked=user.notifications.competitions)
+							|  When there is a new competition
 						.checkbox: label
 							input(type='checkbox', name='notifications.posts' value='true' checked=user.notifications.posts)
 							|  When there is a new post

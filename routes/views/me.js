@@ -1,20 +1,20 @@
-var keystone = require("keystone"),
-  _ = require("lodash"),
-  moment = require("moment");
+const keystone = require("keystone");
+const _ = require("lodash");
+const moment = require("moment");
 
-var Meetup = keystone.list("Meetup"),
-  RSVP = keystone.list("RSVP");
+const Competition = keystone.list("Competition");
+const RSVP = keystone.list("RSVP");
 
 exports = module.exports = function(req, res) {
   var view = new keystone.View(req, res),
     locals = res.locals;
 
   locals.section = "me";
-  locals.page.title = "Settings - SoteTalent";
+  locals.page.title = "Profile Settings - SoteTalent";
 
   view.query(
-    "nextMeetup",
-    Meetup.model
+    "nextCompetition",
+    Competition.model
       .findOne()
       .where("state", "active")
       .sort("startDate"),
@@ -27,7 +27,7 @@ exports = module.exports = function(req, res) {
       .find()
       .where("who", req.user)
       .where("attending", true)
-      .populate("meetup")
+      .populate("competition")
       .sort("-createdAt")
   );
 
@@ -36,7 +36,7 @@ exports = module.exports = function(req, res) {
       req.body,
       {
         fields:
-          "name, email, notifications.meetups, notifications.posts," +
+          "name, email, notifications.competitions, notifications.posts," +
           "website, isPublic, bio, photo," +
           "mentoring.available, mentoring.free, mentoring.paid, mentoring.swap, mentoring.have, mentoring.want",
         flashErrors: true

@@ -47,7 +47,7 @@ User.add(
   {
     notifications: {
       posts: { type: Boolean },
-      meetups: { type: Boolean, default: true }
+      competitions: { type: Boolean, default: true }
     }
   },
   "Mentoring",
