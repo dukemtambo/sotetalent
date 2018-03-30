@@ -126,8 +126,9 @@ block content
 					.col-sm-10
 						if user.startup
 							select( name="startup").selectpicker.form-control
-								option(data-tokens="merglabs", value=user.startup)=startups
+								option(data-tokens="merglabs", value=user.startup) #{user.startup} (startup ID)
 								option(data-tokens="rogim" value="5ab2dcfefcddda53442192e1") Rogim
+								option(data-tokens="merglabs" value="5aaf364921c5431b21f6c7b7") Merglabs
 						else
 							select(data-live-search="true", title="Select Startup ...", name="startup").selectpicker.form-control
 								option(data-tokens="merglabs" value="5aaf364921c5431b21f6c7b7") Merglabs
