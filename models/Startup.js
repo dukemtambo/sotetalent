@@ -17,7 +17,8 @@ Startup.add({
   website: Types.Url,
   isHiring: Boolean,
   description: { type: Types.Markdown },
-  location: Types.Location
+  location: Types.Location,
+  members: { type: Types.Relationship, ref: "User" }
 });
 
 /**
@@ -25,8 +26,7 @@ Startup.add({
  * =============
  */
 
-//  Founder For the Given Startup (Should be user)
-
+//  Founders For the Given Startup (Should be user)
 Startup.relationship({
   ref: "User",
   refPath: "startup",

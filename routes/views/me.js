@@ -37,7 +37,7 @@ exports = module.exports = function(req, res) {
       {
         fields:
           "name, email, notifications.competitions, notifications.posts," +
-          "website, isPublic, bio, photo," +
+          "website, startup, isPublic, bio, photo," +
           "mentoring.available, mentoring.free, mentoring.paid, mentoring.swap, mentoring.have, mentoring.want",
         flashErrors: true
       },

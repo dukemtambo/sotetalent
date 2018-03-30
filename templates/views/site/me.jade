@@ -122,6 +122,21 @@ block content
 					.col-sm-10: input(type='text', name='website' value=user.website).form-control
 				//- insert startup
 				.form-group
+					label.col-sm-2.control-label Startup
+					.col-sm-10
+						if user.startup
+							select( name="startup").selectpicker.form-control
+								option(data-tokens="merglabs", value=user.startup)=startups
+								option(data-tokens="rogim" value="5ab2dcfefcddda53442192e1") Rogim
+						else
+							select(data-live-search="true", title="Select Startup ...", name="startup").selectpicker.form-control
+								option(data-tokens="merglabs" value="5aaf364921c5431b21f6c7b7") Merglabs
+								option(data-tokens="rogim" value="5ab2dcfefcddda53442192e1") Rogim
+						p.small
+							| can't see your startup? add it 
+							a(href='#') here
+				//- end startup 
+				.form-group
 					label.col-sm-2.control-label Bio
 						br
 						.text-muted (markdown)
