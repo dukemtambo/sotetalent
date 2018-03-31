@@ -1,8 +1,8 @@
-var _ = require("lodash");
-var Store = require("store-prototype");
-var request = require("superagent");
+const _ = require("lodash");
+const Store = require("store-prototype");
+const request = require("superagent");
 
-var RSVPStore = new Store();
+const RSVPStore = new Store();
 
 var loaded = false;
 var busy = false;
@@ -10,7 +10,7 @@ var competition = {};
 var rsvp = {};
 var attendees = [];
 
-var REFRESH_INTERVAL = 5000; // 5 seconds
+var REFRESH_INTERVAL = 9000; // 9 seconds
 
 var refreshTimeout = null;
 function cancelRefresh() {

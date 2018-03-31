@@ -1,6 +1,6 @@
-var React = require("react");
-var request = require("superagent");
-var RSVPStore = require("../stores/RSVPStore");
+const React = require("react");
+const request = require("superagent");
+const RSVPStore = require("../stores/RSVPStore");
 
 var AttendingApp = React.createClass({
   getInitialState: function() {
@@ -28,7 +28,7 @@ var AttendingApp = React.createClass({
   renderHeading: function() {
     if (!this.state.isReady) return <h3 className="heading-with-line">...</h3>;
     var count = this.state.attendees ? this.state.attendees.length : "...";
-    var plural = count === 1 ? " startup is" : " startups are";
+    var plural = count === 1 ? " person is" : " people are";
     return (
       <h3 className="heading-with-line"> {count + plural} participating</h3>
     );
