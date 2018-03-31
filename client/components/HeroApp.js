@@ -38,7 +38,12 @@ const HeroApp = React.createClass({
     if (this.state.rsvp.attending) {
       return (
         <h4 className="hero-button-title">
-          <span className="welcome-message">We have your RSVP</span>
+          <span className="welcome-message">
+            Your application is still not valid until you fill and submit this{" "}
+            <a href="https://goo.gl/forms/XCZZEJxUBc4ZPUF53" target="blank">
+              form
+            </a>
+          </span>
         </h4>
       );
     } else {
