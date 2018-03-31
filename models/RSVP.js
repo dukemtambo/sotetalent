@@ -9,13 +9,6 @@ const Types = keystone.Field.Types;
 const RSVP = new keystone.List("RSVP");
 
 RSVP.add({
-  meetup: {
-    type: Types.Relationship,
-    ref: "Meetup",
-    required: true,
-    initial: true,
-    index: true
-  },
   competition: {
     type: Types.Relationship,
     ref: "Competition",
@@ -23,6 +16,7 @@ RSVP.add({
     initial: true,
     index: true
   },
+  // who should be startup instead of individuals
   who: {
     type: Types.Relationship,
     ref: "User",
@@ -48,15 +42,19 @@ RSVP.schema.pre("save", function(next) {
 });
 
 RSVP.schema.post("save", function() {
-  keystone.list("Meetup").model.findById(this.meetup, function(err, meetup) {
-    if (meetup) meetup.refreshRSVPs();
-  });
+  keystone
+    .list("Competition")
+    .model.findById(this.competition, function(err, competition) {
+      if (competition) competition.refreshRSVPs();
+    });
 });
 
 RSVP.schema.post("remove", function() {
-  keystone.list("Meetup").model.findById(this.meetup, function(err, meetup) {
-    if (meetup) meetup.refreshRSVPs();
-  });
+  keystone
+    .list("Competition")
+    .model.findById(this.competition, function(err, competition) {
+      if (competition) competition.refreshRSVPs();
+    });
 });
 
 /**
@@ -64,6 +62,6 @@ RSVP.schema.post("remove", function() {
  * ============
  */
 
-RSVP.defaultColumns = "meetup, who, createdAt";
+RSVP.defaultColumns = "competition, who, createdAt";
 RSVP.defaultSort = "-createdAt";
 RSVP.register();

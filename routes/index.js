@@ -130,6 +130,7 @@ exports = module.exports = function(app) {
   // API
   app.all("/api*", keystone.middleware.api);
   app.all("/api/me/meetup", routes.api.me.meetup);
+  app.all("/api/me/competition", routes.api.me.competition);
   app.all("/api/stats", routes.api.stats);
   app.all("/api/meetup/:id", routes.api.meetup);
   app.all("/api/competition/:id", routes.api.competition);

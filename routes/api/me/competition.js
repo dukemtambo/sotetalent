@@ -1,0 +1,49 @@
+const keystone = require("keystone");
+const RSVP = keystone.list("RSVP");
+
+exports = module.exports = function(req, res) {
+  console.log("User ID is", req.user._id);
+  console.log("The competition is", req.body.data.competition);
+
+  RSVP.model
+    .findOne()
+    .where("who", req.user._id)
+    .where("competition", req.body.data.competition)
+    .exec(function(err, rsvp) {
+      if (req.body.statusOnly) {
+        console.log("==========statusOnly=============");
+
+        return res.apiResponse({
+          success: true,
+          rsvped: rsvp ? true : false,
+          attending: rsvp && rsvp.attending ? true : false
+        });
+      } else {
+        if (rsvp) {
+          console.log("==========rsvp=============");
+          console.log("req.body.attending", req.body);
+          rsvp
+            .set({
+              attending: req.body.data.attending
+            })
+            .save(function(err) {
+              if (err) return res.apiResponse({ success: false, err: err });
+              return res.apiResponse({
+                success: true,
+                attending: req.body.data.attending
+              });
+            });
+        } else {
+          console.log("==========saving to rsvp model=============");
+          new RSVP.model({
+            competition: req.body.data.competition,
+            who: req.user,
+            attending: req.body.data.attending
+          }).save(function(err) {
+            if (err) return res.apiResponse({ success: false, err: err });
+            return res.apiResponse({ success: true });
+          });
+        }
+      }
+    });
+};
