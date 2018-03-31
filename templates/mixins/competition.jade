@@ -1,6 +1,6 @@
 include meetup-talk
 
-mixin meetup(meetup)
+mixin competition(meetup)
 
 	- var today = new Date();
 
@@ -31,7 +31,7 @@ mixin meetup(meetup)
 							if !rsvpStatus.rsvped && rsvpStatus.attending
 								span RSVP Confirmed!
 							else
-								span Are you coming?&nbsp;
+								span Are you participating?&nbsp;
 								span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 
 						include ../includes/attendance-toggle
@@ -41,7 +41,7 @@ mixin meetup(meetup)
 				else
 					#next-meetup(data-id=meetup.id)
 						if meetup.rsvpsAvailable
-							a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+							a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger Apply Now 
 								span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 						else
 							.alert.alert-success.mb-0.text-center No more tickets&hellip;

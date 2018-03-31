@@ -1,6 +1,6 @@
 {
-  "name": "sotetalent-site",
-  "version": "0.0.3",
+  "name": "sydjs-site",
+  "version": "0.0.2",
   "private": true,
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "graphql-relay": "0.3.6",
     "jade": "1.11.0",
     "keystone": "https://github.com/keystonejs/keystone.git#f3083c",
+    "keystone-email": "^1.0.5",
     "lodash": "3.10.1",
     "moment": "2.19.3",
     "newrelic": "1.26.2",

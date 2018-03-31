@@ -1,0 +1,10 @@
+extends ../../layouts/default
+
+include ../../mixins/competition
+
+block content
+	.container-sm
+		.page-intro.text-left
+			a(href='/competitions').text-muted &larr; Back to all competitionss
+		.page-content
+			+competitions(competition)

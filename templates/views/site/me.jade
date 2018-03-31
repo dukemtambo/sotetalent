@@ -9,11 +9,11 @@ block content
 		.page-intro
 			p.lead Hi #{user.name.first}, these are your settings and 
 				a(href=user.url) profile details
-			//- if nextMeetup
+			//- if nextCompetition
 				.alert.alert-info 
 					span.entypo.entypo-calendar
-					|  The next meetup has been announced - 
-					a(href=nextMeetup.url).alert-link= nextMeetup._.startDate.format('dddd D MMM YYYY')
+					|  The next competition has been announced - 
+					a(href=nextCompetition.url).alert-link= nextCompetition._.startDate.format('dddd D MMM YYYY')
 		.page-content.tile.ph-2.pv-2.mb-2
 			+flash-messages(messages)
 			form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal
@@ -31,14 +31,14 @@ block content
 					strong.col-sm-2.control-label Notify me
 					.col-sm-10
 						.checkbox: label
-							input(type='checkbox', name='notifications.meetups' value='true' checked=user.notifications.meetups)
-							|  When there is a new meetup
+							input(type='checkbox', name='notifications.competitionss' value='true' checked=user.notifications.competitions)
+							|  When there is a new competition
 						.checkbox: label
 							input(type='checkbox', name='notifications.posts' value='true' checked=user.notifications.posts)
 							|  When there is a new post
 				hr.mv-2
 				h3 Your Services
-				p.help-block.mb-2 You can authenticate yourself on the SydJS website with any of the services you connect. When connected, links to your Twitter and Github will be displayed on your profile.
+				p.help-block.mb-2 You can authenticate yourself on the SoteTalent website with any of the services you connect. When connected, links to your Twitter and Github will be displayed on your profile.
 				
 				
 				//- Unconfigured Services
@@ -116,10 +116,27 @@ block content
 					.col-sm-10
 						label.checkbox-inline
 							input(type='checkbox', name='isPublic', value='true', checked=user.isPublic ? 'true' : null)
-							|  Show my profile on the SydJS website
+							|  Show my profile on the SoteTalent website
 				.form-group
 					label.col-sm-2.control-label Website
 					.col-sm-10: input(type='text', name='website' value=user.website).form-control
+				//- insert startup
+				.form-group
+					label.col-sm-2.control-label Startup
+					.col-sm-10
+						if user.startup
+							select( name="startup").selectpicker.form-control
+								option(data-tokens="merglabs", value=user.startup) #{user.startup} (startup ID)
+								option(data-tokens="rogim" value="5aba475502b13e0004c57d73") Rogim
+								//- option(data-tokens="merglabs" value="5aaf364921c5431b21f6c7b7") Merglabs
+						else
+							select(data-live-search="true", title="Select Startup ...", name="startup").selectpicker.form-control
+								//- option(data-tokens="merglabs" value="5aaf364921c5431b21f6c7b7") Merglabs
+								option(data-tokens="rogim" value="5aba475502b13e0004c57d73") Rogim
+						p.small
+							| can't see your startup? add it 
+							a(href='/startups') here
+				//- end startup 
 				.form-group
 					label.col-sm-2.control-label Bio
 						br

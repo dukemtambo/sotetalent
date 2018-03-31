@@ -16,6 +16,10 @@ html
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/site.min.css", rel="stylesheet")
 		
+		//- Latest compiled and minified CSS
+		link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css")
+
+
 		if user && user.canAccessKeystone
 			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
 
@@ -29,6 +33,10 @@ html
 			//- APP ALERT
 			//- if section == 'home'
 			//- 	include ../includes/layout/app-alert
+
+			//- APP ALERT
+			if section == 'home'
+				include ../includes/layout/dev-alert
 
 			//- SITE HEADER
 			include ../includes/layout/header
@@ -58,16 +66,19 @@ html
 						+auth-forms({ modal: true, initial: 'signin' })
 
 	//- JAVASCRIPT
-	if meetup
+	if competition
 		script.
-			var SydJS = {};
-			SydJS.meetup = !{JSON.stringify(meetup)};
+			var SoteTalent = {};
+			SoteTalent.competition = !{JSON.stringify(competition)};
 
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
 	script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js')
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')
 	script(src='/js/lib/bootstrap/modal.js')
+
+	//- <!-- Latest compiled and minified JavaScript -->
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js")
 
 	//- Headroom
 	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/headroom.min.js")

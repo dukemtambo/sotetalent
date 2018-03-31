@@ -1,26 +1,29 @@
-var keystone = require('keystone'),
-	_ = require('lodash');
+var keystone = require("keystone"),
+  _ = require("lodash");
 
-var User = keystone.list('User'),
-	Organisation = keystone.list('Organisation');
+var User = keystone.list("User"),
+  Organisation = keystone.list("Organisation");
 
 exports = module.exports = function(req, res) {
-	
-	var view = new keystone.View(req, res),
-		locals = res.locals;
-	
-	locals.section = 'showbag';
-	locals.page.title = 'SydJS Showbag';
+  var view = new keystone.View(req, res),
+    locals = res.locals;
 
-	Organisation.model.findOne().where('key', 'thinkmill').exec(function(err, thinkmill) {
-		if (err || !thinkmill) {
-			return view.render('errors/500');
-		}
-		locals.thinkmill = thinkmill;
+  locals.section = "showbag";
+  locals.page.title = "SoteTalent Showbag";
 
-		view.query('members', User.model.find().where({organisation: thinkmill.id}));
-		view.render('site/showbag');
+  Organisation.model
+    .findOne()
+    .where("key", "thinkmill")
+    .exec(function(err, thinkmill) {
+      if (err || !thinkmill) {
+        return view.render("errors/500");
+      }
+      locals.thinkmill = thinkmill;
 
-	});
-	
-}
+      view.query(
+        "members",
+        User.model.find().where({ organisation: thinkmill.id })
+      );
+      view.render("site/showbag");
+    });
+};
