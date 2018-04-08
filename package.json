@@ -41,10 +41,6 @@
     "store-prototype": "1.1.1",
     "superagent": "1.8.5"
   },
-  "engines": {
-    "node": "~4.8.4",
-    "npm": "~2.14.3"
-  },
   "scripts": {
     "start": "node keystone.js",
     "print-graphql-schema": "babel-node ./graphql/scripts/printSchema.js"
