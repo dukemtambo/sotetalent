@@ -77,7 +77,7 @@ keystone.set('locals', {
 keystone.set('email locals', {
   utils: keystone.utils,
   host: (function() {
-    if (keystone.get('env') === 'staging') return 'http://sotetalent-beta.herokuapp.com';
+    if (keystone.get('env') === 'staging') return 'http://stage-sotetalent.herokuapp.com';
     if (keystone.get('env') === 'production') return 'http://www.sotetalent.com';
     return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
   })(),
