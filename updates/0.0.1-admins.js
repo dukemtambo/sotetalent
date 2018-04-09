@@ -1,26 +1,30 @@
-var keystone = require('keystone'),
-	async = require('async'),
-	User = keystone.list('User');
+/* eslint-disable new-cap */
+const keystone = require('keystone');
+const async = require('async');
 
-var admins = [
-	{ email: 'user@keystonejs.com', password: 'admin', name: { first: 'Admin', last: 'User' } }
-];
+const User = keystone.list('User');
+
+const admins = [{ email: 'user@keystonejs.com', password: 'admin', name: { first: 'Admin', last: 'User' } }];
 
 function createAdmin(admin, done) {
-	User.model.findOne({ email: admin.email }).exec(function(err, user) {
-		admin.isAdmin = true;
-		new User.model(admin).save(function(err) {
-			if (err) {
-				console.error("Error adding admin " + admin.email + " to the database:");
-				console.error(err);
-			} else {
-				console.log("Added admin " + admin.email + " to the database.");
-			}
-			done();
-		});
-	});
+  User.model.findOne({ email: admin.email }).exec((err, user) => {
+    admin.isAdmin = true;
+    new User.model(admin).save(err => {
+      if (err) {
+        console.error(`Error adding admin ${admin.email} to the database:`);
+        console.error(err);
+      } else {
+        console.log(`Added admin ${admin.email} to the database.`);
+      }
+      done();
+    });
+  });
 }
 
-exports = module.exports = function(done) {
-	async.forEach(admins, createAdmin, done);
+exports = function(done) {
+  async.forEach(admins, createAdmin, done);
+};
+
+module.exports = function(done) {
+  async.forEach(admins, createAdmin, done);
 };
